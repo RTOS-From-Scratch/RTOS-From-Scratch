@@ -1,0 +1,3 @@
+[submodule "helper_libraries"]
+	path = helper_libraries
+	url = https://github.com/RTOS-From-Scratch/helper_libraries.git
