@@ -4,3 +4,6 @@
 [submodule "Kernel"]
 	path = Kernel
 	url = https://github.com/RTOS-From-Scratch/Kernel
+[submodule "DataStructures"]
+	path = DataStructures
+	url = https://github.com/RTOS-From-Scratch/DataStructures.git
