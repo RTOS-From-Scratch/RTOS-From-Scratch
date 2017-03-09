@@ -7,3 +7,6 @@
 [submodule "DataStructures"]
 	path = DataStructures
 	url = https://github.com/RTOS-From-Scratch/DataStructures.git
+[submodule "Drivers"]
+	path = Drivers
+	url = https://github.com/RTOS-From-Scratch/Drivers
