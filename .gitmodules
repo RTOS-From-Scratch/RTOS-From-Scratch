@@ -1,5 +1,5 @@
 [submodule "helper_libraries"]
-	path = helper_libraries
+	path = Misc
 	url = https://github.com/RTOS-From-Scratch/helper_libraries.git
 [submodule "Kernel"]
 	path = Kernel
