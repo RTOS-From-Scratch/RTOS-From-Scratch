@@ -46,6 +46,7 @@ if(${TESTING_${PROJECT_NAME}})
     # build every part in its build folder
     foreach(part ${RFS_PARTS})
         add_subdirectory(${part})
+        unset(TESTING_${part} CACHE)    # remove `TESTING` option from the subdirectories
     endforeach(part ${RFS_PARTS})
 endif(${TESTING_${PROJECT_NAME}})
 #################################################################
