@@ -1,3 +1,5 @@
+[![license](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/copyleft/gpl.html)
+
 # RTOS-From-Scratch
 Real time operating system made with love ♥.
 
