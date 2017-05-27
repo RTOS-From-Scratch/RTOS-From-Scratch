@@ -11,3 +11,6 @@
 [submodule "Misc"]
 	path = Misc
 	url = https://github.com/RTOS-From-Scratch/Misc
+[submodule "FileSystem"]
+	path = FileSystem
+	url = https://github.com/RTOS-From-Scratch/FileSystem
