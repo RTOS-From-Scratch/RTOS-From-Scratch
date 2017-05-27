@@ -2,7 +2,7 @@
 # * Description : CMake is an open-source, cross-platform family of tools
 # *               designed to build, test and package software.
 # * Usage       : CMake is used to control the software compilation process
-# *               using simple platform and compiler independent 
+# *               using simple platform and compiler independent
 # *               configuration files, and generate native makefiles
 # *               and workspaces that can be used in the compiler environment
 # *               of your choice.
@@ -36,8 +36,13 @@ SET(CMAKE_SOURCE_DIR src)
 
 SET(PROJECT_NAME ${Curr_dir})
 
-SET(RFS_PARTS Kernel Drivers DataStructures Misc)
+SET(RFS_PARTS Kernel Drivers DataStructures Misc FileSystem)
 string (REPLACE ";" " " RFS_PARTS_STR "${RFS_PARTS}")
+
+# `config.h` used to pass options from `CMake` into `macros`
+SET(CONFIG_HEADER_PATH "${PROJ_PATH}/Misc/src")
+# clear `config.h` file
+file(WRITE ${CONFIG_HEADER_PATH}/config.h "")
 #################################################################
 
 ################## Compile RFS components First ##################
@@ -108,7 +113,7 @@ SET (${PROJECT_NAME}_Sources ${${PROJECT_NAME}_Headers}
 ################## Compiler and linker configs ##################
 # cahce force -> used to force show in cmake-gui
 #TODO: need to handle -MF -MT
-set(FLAGS "-mcpu=cortex-m4 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -Wall")
+set(FLAGS "-mcpu=cortex-m4 -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections -g -gdwarf-3 -gstrict-dwarf -Wall -DPC_COMMUNICATION")
 set(CMAKE_C_FLAGS "${FLAGS} -MD -std=c99 -MMD -MP" CACHE STRING "C flags" FORCE)
 set(CMAKE_EXE_LINKER_FLAGS "-Wl,-Map,'${PROJECT_NAME}.map' -Wl,-T'${PROJ_PATH}/tm4c123gh6pm.lds' --specs=nosys.specs -Wl,--start-group -l'gcc' -l'nosys' -l'c' -Wl,--end-group" CACHE STRING "Linker flags" FORCE)
 #################################################################
@@ -164,7 +169,21 @@ if(${RFS_TESTING_${PROJECT_NAME}})
     message(STATUS "| Testing is ON ... |")
     message(STATUS "---------------------")
 endif(${RFS_TESTING_${PROJECT_NAME}})
+
+# Enable/disable `ASSERT` system
+SET(RFS_Misc_ASSERT True CACHE BOOL "Enable/Disable `ASSERT` system")
+if(${RFS_TESTING_${PROJECT_NAME}})
+    message(STATUS "`ASSERT` system is Enabled")
+    add_definitions( -DPC_COMMUNICATION )
+endif(${RFS_TESTING_${PROJECT_NAME}})
 #################################################################
+
+############################# Macros #############################
+# number of tasks
+SET(RFS_Kernel_NumberofTasks "10" CACHE STRING "Max numeber of tasks will be used on the RFS")
+MESSAGE(STATUS "Number of Tasks are ${RFS_Kernel_NumberofTasks}")
+file(APPEND ${CONFIG_HEADER_PATH}/config.h "#define NUM_OF_TASKS ${RFS_Kernel_NumberofTasks}")
+##################################################################
 
 ######################### clear config ##########################
 if(${RFS_TESTING_${PROJECT_NAME}})
