@@ -308,7 +308,6 @@ FaultISR(void)
 
     while(1)
     {
-//        GPIO_PORTF_DATA_R = (GPIO_PORTF_DATA_R & ~0xE) | 0x2;
     }
 }
 
