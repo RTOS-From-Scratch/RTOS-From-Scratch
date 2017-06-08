@@ -172,17 +172,51 @@ endif(${RFS_TESTING_${PROJECT_NAME}})
 
 # Enable/disable `ASSERT` system
 SET(RFS_Misc_ASSERT True CACHE BOOL "Enable/Disable `ASSERT` system")
-if(${RFS_TESTING_${PROJECT_NAME}})
+if(${RFS_Misc_ASSERT})
     message(STATUS "`ASSERT` system is Enabled")
     add_definitions( -DPC_COMMUNICATION )
-endif(${RFS_TESTING_${PROJECT_NAME}})
+endif(${RFS_Misc_ASSERT})
 #################################################################
 
 ############################# Macros #############################
-# number of tasks
-SET(RFS_Kernel_NumberofTasks "10" CACHE STRING "Max numeber of tasks will be used on the RFS")
-MESSAGE(STATUS "Number of Tasks are ${RFS_Kernel_NumberofTasks}")
-file(APPEND ${CONFIG_HEADER_PATH}/config.h "#define NUM_OF_TASKS ${RFS_Kernel_NumberofTasks}")
+# Enable/disable `ASSERT` system
+SET(RFS_SYS_UART_BAUDRATE "115200" CACHE STRING "set system UART baud rate")
+SET_PROPERTY(CACHE RFS_SYS_UART_BAUDRATE PROPERTY STRINGS "110"
+                                                          "300"
+                                                          "600"
+                                                          "1200"
+                                                          "2400"
+                                                          "4800"
+                                                          "9600"
+                                                          "14400"
+                                                          "19200"
+                                                          "28800"
+                                                          "38400"
+                                                          "56000"
+                                                          "57600"
+                                                          "115200"
+                                                          "128000"
+                                                          "153600"
+                                                          "230400"
+                                                          "256000"
+                                                          "460800"
+                                                          "921600")
+file(APPEND ${CONFIG_HEADER_PATH}/config.h "#define PC_COMMUNICATION_BAUDRATE ${RFS_SYS_UART_BAUDRATE}\n")
+
+# system clk speed
+SET(RFS_SYS_clockSpeed "80" CACHE STRING "set system clock speed in MHz")
+SET_PROPERTY(CACHE RFS_SYS_clockSpeed PROPERTY STRINGS "80"
+                                                       "50"
+                                                       "40"
+                                                       "25"
+                                                       "20"
+                                                       "16"
+                                                       "10"
+                                                       "8"
+                                                       "5"
+                                                       "4")
+file(APPEND ${CONFIG_HEADER_PATH}/config.h "#define SYS_CLK_SPEED_IN_MHZ ${RFS_SYS_clockSpeed}\n")
+
 ##################################################################
 
 ######################### clear config ##########################
