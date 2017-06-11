@@ -138,6 +138,7 @@ if(${RFS_TESTING_${PROJECT_NAME}})
                                        $<TARGET_OBJECTS:Drivers>
                                        $<TARGET_OBJECTS:DataStructures>
                                        $<TARGET_OBJECTS:Misc>
+                                       $<TARGET_OBJECTS:FileSystem>
                                        ${${PROJECT_NAME}_Sources})
 
     # link the output with the libraries in `lib` folder
